@@ -8,9 +8,14 @@ int main()
 
     std::cout << fun(a,b) << std::endl;
 
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1024, 768), "Hello kettle HMI!");
     sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+
+        // Create a graphical text to display
+    sf::Font font;
+    if (!font.loadFromFile("./fonts/Arial.ttf"))
+        return EXIT_FAILURE;
+    sf::Text text("Hello kettle HMI!", font, 50);
 
     while (window.isOpen())
     {
@@ -22,7 +27,7 @@ int main()
         }
 
         window.clear();
-        window.draw(shape);
+        window.draw(text);
         window.display();
     }
 /**/
