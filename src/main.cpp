@@ -1,12 +1,12 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <fun.hpp>
+#include "uart.hpp"
 
 int main()
 {
-    int a = 6, b = 4;
+    /* Serial port init */
 
-    std::cout << fun(a,b) << std::endl;
+    
 
     sf::RenderWindow window(sf::VideoMode(1024, 768), "Hello kettle HMI!");
     sf::CircleShape shape(100.f);
@@ -15,13 +15,13 @@ int main()
     sf::Font font;
     if (!font.loadFromFile("./fonts/Arial.ttf"))
         return EXIT_FAILURE;
-    sf::Text text("Hello kettle HMI!", font, 50);
+    sf::Text text("Hello UART!", font, 50);
 
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
-        {
+        { 
             if (event.type == sf::Event::Closed)
                 window.close();
         }
