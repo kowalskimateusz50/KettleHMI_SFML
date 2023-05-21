@@ -4,10 +4,19 @@
 
 int main()
 {
+
     /* Serial port init */
 
-    
+    // Initialize structure of UART device 
+    struct UartDevice dev;
+    int rc;
 
+    //Adjust settings of UART device
+    dev.BaudRate = BAUD_RATE;
+    dev.DevicePath = DEVICE_PATH;
+
+    //Initializing UART 
+    
     sf::RenderWindow window(sf::VideoMode(1024, 768), "Hello kettle HMI!");
     sf::CircleShape shape(100.f);
 

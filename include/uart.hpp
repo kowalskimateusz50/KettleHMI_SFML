@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <cstdlib>
 
 // Linux headers
 #include <fcntl.h> // Contains file controls like O_RDWR
@@ -17,14 +19,15 @@
 #define BAUD_RATE B115200
 
 //Define device description structure 
-
-struct UartDevice {
+struct UartDevice 
+{
 	char* DevicePath;
 	int BaudRate;
-
 	int fd;
 	struct termios *tty;
 };
 
 int UartInit(struct UartDevice* dev, bool canonic);
-int UartWrite()
+int UartWrite(struct UartDevice* dev, char* Buffer, size_t BufLen);
+int UartWriteString(struct UartDevice* dev, char* Buffer);
+int UartStop(struct UartDevice* dev);
