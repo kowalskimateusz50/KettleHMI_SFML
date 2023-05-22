@@ -28,6 +28,7 @@ struct UartDevice
 };
 
 int UartInit(struct UartDevice* dev, bool canonic);
+int UartRead(struct UartDevice *dev, char *Buffer, size_t BufLen);
 int UartWrite(struct UartDevice* dev, char* Buffer, size_t BufLen);
 int UartWriteString(struct UartDevice* dev, char* Buffer);
 int UartStop(struct UartDevice* dev);

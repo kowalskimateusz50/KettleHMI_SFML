@@ -73,6 +73,20 @@ int UartInit(struct UartDevice *dev, bool canonical)
     return 0;
 }
 
+int UartRead(struct UartDevice *dev, char *Buffer, size_t BufLen)
+{
+    int rc; 
+
+    rc = read(dev->fd, Buffer, BufLen-1);
+    if (rc < 0)
+    {
+		printf("%s: failed to read uart data\r\n", __func__);
+		return rc;
+	}
+    Buffer[BufLen] = '\0';
+    return rc;
+}
+
 int UartWrite(struct UartDevice *dev, char *Buffer, size_t BufLen)
 {
     return write(dev->fd, Buffer, BufLen);
