@@ -56,7 +56,8 @@ int UartInit(struct UartDevice *dev, bool canonical)
     }
 
     /* Flush port */
-    tcflush(fd, TCIOFLUSH);
+                sleep(2);
+                tcflush(fd, TCIOFLUSH);
 
     /* Apply attributes */
     rc = tcsetattr(fd, TCSANOW, tty);
