@@ -28,6 +28,12 @@ int main()
 		return rc;
 	}
 
+    /* SFML Template */
+    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+    sf::CircleShape shape(100.f);
+    shape.setFillColor(sf::Color::Green);
+
+
     debug("Uart port sucessfully initialized"); 
 
     /* UART String containers*/
@@ -35,17 +41,26 @@ int main()
 	char LoopbackData[MAX_LOOPBACK_SIZE];
 	size_t ReadDataLength;
 
-    while (true)
+    while (window.isOpen())
     {
-
-
         ReadDataLength = UartRead(&dev, ReadData, MAX_READ_SIZE);
 
         if (ReadDataLength > 0)
         {
-
             debug("Read:" << ReadData);
         }
+
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+    
+
+        window.clear();
+        window.draw(shape);
+        window.display();
         
     }
 

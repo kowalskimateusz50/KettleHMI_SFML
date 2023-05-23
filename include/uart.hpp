@@ -14,7 +14,7 @@
 #include <unistd.h> // write(), read(), close()
 
 //Uart device settings
-#define MAX_READ_SIZE 8
+#define MAX_READ_SIZE 9
 #define DEVICE_PATH "/dev/ttyACM0"
 #define BAUD_RATE B115200
 
