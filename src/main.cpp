@@ -29,9 +29,10 @@ int main()
 	}
 
     /* SFML Template */
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    sf::RenderWindow window(sf::VideoMode(1024, 600), "Kettle HMI");
+    sf::Texture Background;
+    Background.loadFromFile("images/Background.png")
+    sf::Sprite s(Background);
 
 
     debug("Uart port sucessfully initialized"); 
@@ -59,7 +60,7 @@ int main()
     
 
         window.clear();
-        window.draw(shape);
+        window.draw(s);
         window.display();
         
     }
