@@ -1,17 +1,12 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "uart.hpp"
-
-#define DISABLE_UART
-#define LOOPBACK_FORMAT "loopback: %s\r\n"
-#define LOOPBACK_FORMAT_LEN strlen(LOOPBACK_FORMAT)
-#define MAX_LOOPBACK_SIZE MAX_READ_SIZE + LOOPBACK_FORMAT_LEN
-
-#define debug(x) std::cout << x << std::endl
+#include "defines.hpp"
+#include "button.hpp"
 
 int main()
 {
-
+#ifndef DISABLE_UART
     /* Serial port init */
 
      
@@ -22,7 +17,7 @@ int main()
     dev.BaudRate = BAUD_RATE;
     dev.DevicePath = DEVICE_PATH;
 
-#ifndef DISABLE_UART
+
     //Initializing UART
     rc = UartInit(&dev, false);
 	if (rc) {
@@ -30,11 +25,30 @@ int main()
 	}
 #endif
 
-    /* SFML Template */
+    /*Window definition  */
     sf::RenderWindow window(sf::VideoMode(1024, 600), "Kettle HMI");
+
+    /* Loading and displaying background  */
     sf::Texture Background;
     Background.loadFromFile("images/Background.png");
     sf::Sprite s(Background);
+
+    /*Loading font*/
+    sf::Font arial;
+    if (!arial.loadFromFile("fonts/arial.ttf"))
+    {
+        debug("Error during loading font");
+    }
+    /* Declare and parametrize some test text*/
+    
+	sf::Text koniec("Game Over", arial, 12);
+	koniec.setPosition(140, 160);
+	koniec.setColor(sf::Color::Red);
+
+
+    //Button object declare
+    Button GreenButton(0.1,0.1,50,100);
+
 
 #ifndef DISABLE_UART
     debug("Uart port sucessfully initialized"); 
@@ -47,13 +61,15 @@ int main()
 
     while (window.isOpen())
     {
+        
+#ifndef DISABLE_UART
         ReadDataLength = UartRead(&dev, ReadData, MAX_READ_SIZE);
 
         if (ReadDataLength > 0)
         {
             debug("Read:" << ReadData);
         }
-
+#endif
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -63,14 +79,24 @@ int main()
     
 
         window.clear();
+
+
+        
+        
+        
         window.draw(s);
+        window.draw(koniec);
+        //window.draw(Butt);
+        window.draw(GreenButton.DrawButton());
+        
+
         window.display();
         
     }
 
-
+#ifndef DISABLE_UART
     /* Close UART*/
     UartStop(&dev);
-
+#endif
     return 0;
 }
