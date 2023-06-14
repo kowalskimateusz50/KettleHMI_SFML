@@ -44,10 +44,10 @@ int main()
 	sf::Text koniec("Game Over", arial, 12);
 	koniec.setPosition(140, 160);
 	koniec.setColor(sf::Color::Red);
-
+    
 
     //Button object declare
-    Button GreenButton(0.1,0.1,50,100);
+    Button GreenButton(0.1,0.1,50,100,"Hello");
 
 
 #ifndef DISABLE_UART
@@ -88,7 +88,7 @@ int main()
         window.draw(koniec);
         //window.draw(Butt);
         window.draw(GreenButton.DrawButton());
-        
+        window.draw(GreenButton.DrawTextOnButton());
 
         window.display();
         

@@ -1,6 +1,7 @@
 
 /* Some fixed defines */
 /* Disable UART code */
+#include<string>
 
 #define DISABLE_UART
 
