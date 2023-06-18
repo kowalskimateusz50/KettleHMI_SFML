@@ -47,7 +47,7 @@ int main()
     
 
     //Button object declare
-    Button GreenButton(0.1,0.1,50,100,"Hello");
+    Button GreenButton(0.05,0.05,50,100,"Hello");
 
 
 #ifndef DISABLE_UART
@@ -73,6 +73,22 @@ int main()
         sf::Event event;
         while (window.pollEvent(event))
         {
+            if (event.type == sf::Event::TextEntered)
+            {
+                if (event.text.unicode < 128)
+                    std::cout << "ASCII character typed: " << static_cast<char>(event.text.unicode) << std::endl;
+            }
+            //Detection of click left mouse button
+            if (event.type == sf::Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
+                    std::cout << "the right button was pressed" << std::endl;
+                    std::cout << "mouse x: " << event.mouseButton.x << std::endl;
+                    std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+                }
+            }
+
             if (event.type == sf::Event::Closed)
                 window.close();
         }
